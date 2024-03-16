@@ -3,6 +3,7 @@ const router = express.Router();
 const path = require("path");
 const { BASE_URL } = require("../constants/ApiUrl");
 const { readIssuesAsync } = require("../services/FileService");
+const { filterIssueById } = require("../utils/Helper");
 
 /**
  * GET api/v1/issues/:id
@@ -18,9 +19,7 @@ router.get(`${BASE_URL}/issues/:id`, async (req, res) => {
       path.resolve(__dirname, "../mockData/issues.json"),
       "utf8"
     );
-    const dataToDisplay = issuesData.issues.filter(
-      (issue) => issue.id == issueId
-    );
+    const dataToDisplay = filterIssueById(issuesData, issueId);
 
     if (dataToDisplay.length == 0) {
       const errorMessage = { error: "Issue not found" };
@@ -84,9 +83,7 @@ router.put(`${BASE_URL}/issues/:id`, async (req, res) => {
       "utf8"
     );
 
-    const dataToUpdate = issuesData.issues.filter(
-      (issue) => issue.id == issueId
-    );
+    const dataToUpdate = filterIssueById(issuesData, issueId);
 
     if (dataToUpdate.length == 0) {
       const errorMessage = { error: "Issue not found" };
@@ -138,7 +135,7 @@ router.delete(`${BASE_URL}/issues/:id`, async (req, res) => {
       "utf8"
     );
 
-    const dataToDelete = issuesData.issues.filter((issue) => issue.id == id);
+    const dataToDelete = filterIssueById(issuesData, id);
 
     if (dataToDelete.length == 0) {
       const errorMessage = { error: "Issue not found" };
