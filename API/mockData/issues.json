@@ -1,0 +1,14 @@
+{
+  "issues": [
+    {
+      "id": 1,
+      "title": "Server Broken",
+      "description": "Server is broken when running npm start"
+    },
+    {
+      "id": 2,
+      "title": "Button Error",
+      "description": "Button error when clicking on the finish button"
+    }
+  ]
+}
